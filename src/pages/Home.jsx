@@ -3,7 +3,6 @@ import Header from '../components/Header'
 import SpecialityMenu from '../components/SpecialityMenu'
 import TopDoctors from '../components/TopDoctors'
 import Banner from '../components/Banner'
-import Footer from '../components/Footer'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 
@@ -26,16 +25,20 @@ const Home = () => {
             onClick={() => handleDoctorClick(doctor.speciality)}
             className='border p-4 rounded cursor-pointer hover:shadow-md'
           >
-            <img src={doctor.image} alt={doctor.name} className='w-full h-40 object-cover rounded' />
+            <img
+              src={doctor.image}
+              alt={doctor.name}
+              className='w-full h-40 object-cover rounded'
+            />
             <p className='font-semibold mt-2'>{doctor.name}</p>
             <p className='text-sm text-gray-500'>{doctor.speciality}</p>
           </div>
         ))}
       </div>
       <Banner />
-      <Footer />
     </div>
   )
 }
 
 export default Home
+

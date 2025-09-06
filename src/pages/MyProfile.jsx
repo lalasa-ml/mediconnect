@@ -7,23 +7,49 @@ const MyProfile = () => {
     image: assets.profile_pic,
     email: 'richardjames@gmail.com',
     phone: '123-456-7890',
-    address: { line1: '123 Main St', line2: 'Apt 4B' },
+    address: { line1: '123 Main St', line2: 'Apt 4B' },
     gender: 'Male',
     dob: '1990-01-01'
   })
 
   const [isEdit, setIsEdit] = useState(false)
 
+  // handle profile picture upload
+  const handlePicChange = e => {
+    const file = e.target.files[0]
+    if (file) {
+      const imageUrl = URL.createObjectURL(file)
+      setUserData(prev => ({ ...prev, image: imageUrl }))
+    }
+  }
+
   return (
     <div className='max-w-lg flex flex-col gap-2 text-sm'>
-      <img className='w-36 rounded' src={userData.image} alt='' />
+      {/* Profile Picture */}
+      <div className='flex flex-col items-start'>
+        <img
+          className='w-36 h-36 rounded object-contain border bg-gray-100'
+          src={userData.image}
+          alt='Profile'
+        />
+        {isEdit && (
+          <input
+            type='file'
+            accept='image/*'
+            onChange={handlePicChange}
+            className='text-xs mt-2'
+          />
+        )}
+      </div>
 
       {/* NAME */}
       {isEdit ? (
         <input
           className='bg-gray-50 text-3xl font-medium max-w-60 mt-4'
           value={userData.name}
-          onChange={e => setUserData(prev => ({ ...prev, name: e.target.value }))}
+          onChange={e =>
+            setUserData(prev => ({ ...prev, name: e.target.value }))
+          }
         />
       ) : (
         <p className='font-medium text-3xl text-neutral-800 mt-4'>
@@ -35,11 +61,10 @@ const MyProfile = () => {
 
       {/* CONTACT */}
       <div>
-        <p className='text-neutral-500 underline mt-3'>CONTACT INFORMATION</p>
+        <p className='text-neutral-500 underline mt-3'>CONTACT INFORMATION</p>
         <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700'>
-
           {/* Email */}
-          <p className='font-medium'>Email id:</p>
+          <p className='font-medium'>Email id:</p>
           {isEdit ? (
             <input
               className='bg-gray-100 max-w-52'
@@ -106,9 +131,8 @@ const MyProfile = () => {
 
       {/* BASIC INFO */}
       <div>
-        <p className='text-neutral-500 underline mt-3'>BASIC INFORMATION</p>
+        <p className='text-neutral-500 underline mt-3'>BASIC INFORMATION</p>
         <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700'>
-
           {/* Gender */}
           <p className='font-medium'>Gender:</p>
           {isEdit ? (
@@ -128,7 +152,7 @@ const MyProfile = () => {
           )}
 
           {/* DOB */}
-          <p className='font-medium'>Date&nbsp;of&nbsp;Birth:</p>
+          <p className='font-medium'>Date of Birth:</p>
           {isEdit ? (
             <input
               type='date'
@@ -167,3 +191,6 @@ const MyProfile = () => {
 }
 
 export default MyProfile
+
+
+
